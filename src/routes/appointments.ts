@@ -1,20 +1,22 @@
 import { Router } from 'express'
-import { uuid } from 'uuidv4'
+import { startOfHour, parseISO } from 'date-fns'
+import AppointmentRepository from '../repositories/AppointmentsRepository'
 
 const routes = Router()
 
-const appointments = []
+const repository = new AppointmentRepository([])
 
 routes.post('/', (req, res) => {
   const { provider, date } = req.body
+  const parsedDate = startOfHour(parseISO(date))
 
-  const appointment = {
-    id: uuid(),
-    provider,
-    date
+  const findAppoointmentSameDate = repository.findByDate(parsedDate)
+
+  if (findAppoointmentSameDate) {
+    return res.status(400).json({ message: 'Appointment already booked' })
   }
 
-  appointments.push(appointment)
+  const appointment = repository.create(provider, parsedDate)
 
   return res.json(appointment)
 })
