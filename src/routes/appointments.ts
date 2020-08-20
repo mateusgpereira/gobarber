@@ -6,6 +6,12 @@ const routes = Router()
 
 const repository = new AppointmentRepository([])
 
+routes.get('/', (req, res) => {
+  const appointments = repository.all()
+
+  return res.json(appointments)
+})
+
 routes.post('/', (req, res) => {
   const { provider, date } = req.body
   const parsedDate = startOfHour(parseISO(date))
@@ -16,7 +22,7 @@ routes.post('/', (req, res) => {
     return res.status(400).json({ message: 'Appointment already booked' })
   }
 
-  const appointment = repository.create(provider, parsedDate)
+  const appointment = repository.create({ provider, date: parsedDate })
 
   return res.json(appointment)
 })
