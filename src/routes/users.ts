@@ -10,34 +10,26 @@ const routes = Router()
 const upload = multer(uploadConfig)
 
 routes.post('/', async (req, res) => {
-  try {
-    const { name, email, password } = req.body
+  const { name, email, password } = req.body
 
-    const service = new CreateUserService()
+  const service = new CreateUserService()
 
-    const user = await service.execute({ name, email, password })
-    delete user.password
-    return res.status(201).json(user)
-  } catch (err) {
-    return res.status(400).json(err.message)
-  }
+  const user = await service.execute({ name, email, password })
+  delete user.password
+  return res.status(201).json(user)
 })
 
 routes.patch('/avatar', auth, upload.single('avatar'), async (req, res) => {
-  try {
-    const service = new UpdateUserAvatarService()
+  const service = new UpdateUserAvatarService()
 
-    const user = await service.execute({
-      user_id: req.user.id,
-      avatarFilename: req.file.filename
-    })
+  const user = await service.execute({
+    user_id: req.user.id,
+    avatarFilename: req.file.filename
+  })
 
-    delete user.password
+  delete user.password
 
-    return res.json(user)
-  } catch (err) {
-    return res.status(400).json({ error: err.message })
-  }
+  return res.json(user)
 })
 
 export default routes

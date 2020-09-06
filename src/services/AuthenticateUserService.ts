@@ -3,6 +3,7 @@ import { compare } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 import User from '../models/User'
 import authConfig from '../config/authConfig'
+import AppError from '../errors/AppError'
 
 interface Request {
   email: string
@@ -20,12 +21,12 @@ class AuthenticateUserService {
 
     const user = await repository.findOne({ where: { email } })
     if (!user) {
-      throw new Error('Incorrect Email or Password')
+      throw new AppError('Incorrect Email or Password', 401)
     }
 
     const passwordMatched = await compare(password, user.password)
     if (!passwordMatched) {
-      throw new Error('Incorrect Email or Password')
+      throw new AppError('Incorrect Email or Password', 401)
     }
 
     delete user.password
