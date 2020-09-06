@@ -1,5 +1,7 @@
 import 'reflect-metadata'
 import express, { Request, Response, NextFunction } from 'express'
+import 'express-async-errors'
+
 import routes from './routes'
 import { tmpFolder } from './config/upload'
 import AppError from './errors/AppError'
@@ -14,7 +16,7 @@ app.use(routes)
 
 app.use('/files', express.static(tmpFolder))
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
   if (err instanceof AppError) {
     return res.status(err.status).json({
       status: 'error',
