@@ -9,8 +9,6 @@ const routes = Router()
 
 routes.use(auth)
 
-const repository = new AppointmentsRepository()
-
 // routes.get('/', async (req, res) => {
 //   const appointments = await repository.find()
 
@@ -20,6 +18,7 @@ const repository = new AppointmentsRepository()
 routes.post('/', async (req, res) => {
   const { provider_id, date } = req.body
   const parsedDate = parseISO(date)
+  const repository = new AppointmentsRepository()
 
   const service = new CreateAppointmentService(repository)
   const appointment = await service.execute({ provider_id, date: parsedDate })
