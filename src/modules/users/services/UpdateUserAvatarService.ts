@@ -1,7 +1,4 @@
-import fs from 'fs'
-import path from 'path'
 import { inject, injectable } from 'tsyringe'
-import { tmpFolder } from '@config/upload'
 import AppError from '@shared/errors/AppError'
 import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider'
 import User from '../infra/typeorm/entities/User'
