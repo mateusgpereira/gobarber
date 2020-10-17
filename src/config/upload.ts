@@ -3,6 +3,7 @@ import crypto from 'crypto'
 import multer from 'multer'
 
 const tmpFolder = path.resolve(__dirname, '..', '..', 'tmp')
+const uploadsFolder = path.resolve(tmpFolder, 'uploads')
 
 const uploadConfig = {
   storage: multer.diskStorage({
@@ -15,4 +16,4 @@ const uploadConfig = {
   })
 }
 
-export { tmpFolder, uploadConfig as default }
+export { tmpFolder, uploadsFolder, uploadConfig as default }
