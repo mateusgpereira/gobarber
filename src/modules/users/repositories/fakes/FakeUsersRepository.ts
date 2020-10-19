@@ -1,5 +1,5 @@
 import { v4 } from 'uuid'
-import IUserRepository from '@modules/users/repositories/IUserRepository'
+import IUserRepository from '@modules/users/repositories/IUsersRepository'
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO'
 import User from '../../infra/typeorm/entities/User'
 

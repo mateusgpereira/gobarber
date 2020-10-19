@@ -3,7 +3,7 @@ import { inject, injectable } from 'tsyringe'
 import authConfig from '@config/authConfig'
 import AppError from '@shared/errors/AppError'
 import User from '../infra/typeorm/entities/User'
-import IUserRepository from '../repositories/IUserRepository'
+import IUserRepository from '../repositories/IUsersRepository'
 import IHashProvider from '../providers/HashProvider/models/IHashProvider'
 
 interface Request {
