@@ -22,6 +22,8 @@ class FakeUsersRepository implements IUserRepository {
     const user = new User()
     user.id = id
     Object.assign(user, userDTO)
+    user.created_at = new Date()
+    user.updated_at = new Date()
     this.users.push(user)
 
     return user
