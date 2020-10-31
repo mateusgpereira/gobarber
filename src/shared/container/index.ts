@@ -4,8 +4,12 @@ import '@modules/users/providers'
 import './providers'
 import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository'
 import AppointmentsRepository from '@modules/appointments/infra/typeorm/repositories/AppointmentsRepository'
+
 import IUserRepository from '@modules/users/repositories/IUsersRepository'
 import UserRepository from '@modules/users/infra/typeorm/repositories/UserRepository'
+
+import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository'
+import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository'
 
 container.registerSingleton<IAppointmentsRepository>(
   'AppointmentsRepository',
@@ -13,3 +17,8 @@ container.registerSingleton<IAppointmentsRepository>(
 )
 
 container.registerSingleton<IUserRepository>('UserRepository', UserRepository)
+
+container.registerSingleton<IUserTokensRepository>(
+  'UserTokensRepository',
+  UserTokensRepository
+)
