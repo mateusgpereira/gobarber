@@ -29,7 +29,7 @@ describe('ResetPasswordService', () => {
     const user = await repository.create({ name, email, password })
     const generateHashSpy = jest.spyOn(hashProvider, 'generateHash')
 
-    const { user_token: token } = await tokenRepository.generate(user.id)
+    const { token } = await tokenRepository.generate(user.id)
     const newPassword = '1234567'
 
     await resetPasswordService.execute({ token, password: newPassword })
@@ -50,10 +50,10 @@ describe('ResetPasswordService', () => {
   })
 
   it('should not be able to reset a password for a non existent user', async () => {
-    const { user_token } = await tokenRepository.generate('anonymous')
+    const { token } = await tokenRepository.generate('anonymous')
     await expect(
       resetPasswordService.execute({
-        token: user_token,
+        token,
         password: '1234567'
       })
     ).rejects.toBeInstanceOf(AppError)
@@ -66,7 +66,7 @@ describe('ResetPasswordService', () => {
       password
     })
 
-    const { user_token } = await tokenRepository.generate(user.id)
+    const { token } = await tokenRepository.generate(user.id)
 
     jest.spyOn(Date, 'now').mockImplementationOnce(() => {
       const customDate = new Date()
@@ -75,7 +75,7 @@ describe('ResetPasswordService', () => {
     })
 
     await expect(
-      resetPasswordService.execute({ token: user_token, password: '1234567' })
+      resetPasswordService.execute({ token, password: '1234567' })
     ).rejects.toBeInstanceOf(AppError)
   })
 })
