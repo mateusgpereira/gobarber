@@ -38,6 +38,7 @@
     "no-useless-constructor": "off",
     "class-methods-use-this": "off",
     "camelcase": "off",
+    "no-shadow": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
       {

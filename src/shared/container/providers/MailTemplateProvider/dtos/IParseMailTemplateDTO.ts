@@ -3,7 +3,7 @@ interface TemplateVariables {
 }
 
 interface IParseMailTemplateDTO {
-  template: string
+  file: string
   variables: TemplateVariables
 }
 

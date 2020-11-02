@@ -8,6 +8,9 @@ class FakeUserTokensRepository implements IUserTokensRepository {
     const userToken = new UserToken()
 
     userToken.user_id = user_id
+    const currentDate = new Date()
+    userToken.created_at = currentDate
+    userToken.updated_at = currentDate
 
     this.usersTokens.push(userToken)
 

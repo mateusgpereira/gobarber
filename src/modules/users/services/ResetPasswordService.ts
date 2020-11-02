@@ -31,7 +31,7 @@ class ResetPasswordService {
     }
 
     const limitDate = addHours(userToken.created_at, 2)
-    if (isAfter(Date.now(), limitDate)) {
+    if (isAfter(new Date(Date.now()), limitDate)) {
       throw new AppError('Token expired')
     }
 

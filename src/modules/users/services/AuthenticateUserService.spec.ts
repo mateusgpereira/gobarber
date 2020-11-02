@@ -5,14 +5,21 @@ import CreateUserService from './CreateUserService'
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository'
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider'
 
+let repository: FakeUsersRepository
+let authService: AuthenticateUserService
+let createUserService: CreateUserService
+let hashProvider: FakeHashProvider
+
 describe('AuthenticateUserService', () => {
-  const hashProvider = new FakeHashProvider()
+  beforeEach(() => {
+    hashProvider = new FakeHashProvider()
+    repository = new FakeUsersRepository()
+    authService = new AuthenticateUserService(repository, hashProvider)
+    createUserService = new CreateUserService(repository, hashProvider)
+  })
+  hashProvider = new FakeHashProvider()
 
   it('should be able to authenticate with email and password', async () => {
-    const repository = new FakeUsersRepository()
-    const authService = new AuthenticateUserService(repository, hashProvider)
-    const createUserService = new CreateUserService(repository, hashProvider)
-
     const email = 'mateus@fire.com'
     const password = '123456'
 
@@ -29,19 +36,12 @@ describe('AuthenticateUserService', () => {
   })
 
   it('should not be able to authenticate with a non-existent user', async () => {
-    const repository = new FakeUsersRepository()
-    const authService = new AuthenticateUserService(repository, hashProvider)
-
-    expect(
+    await expect(
       authService.execute({ email: 'usguri@test.com', password: 'senhazinha' })
     ).rejects.toBeInstanceOf(AppError)
   })
 
   test('should not be able to authenticate with wrong credentials', async () => {
-    const repository = new FakeUsersRepository()
-    const createUserService = new CreateUserService(repository, hashProvider)
-    const authService = new AuthenticateUserService(repository, hashProvider)
-
     const email = 'mateus@fire.com'
 
     await createUserService.execute({
@@ -50,7 +50,7 @@ describe('AuthenticateUserService', () => {
       password: '123456'
     })
 
-    expect(
+    await expect(
       authService.execute({ email, password: 'wrong-pass' })
     ).rejects.toBeInstanceOf(AppError)
   })

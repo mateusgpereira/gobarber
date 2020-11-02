@@ -3,7 +3,16 @@ import AppError from '@shared/errors/AppError'
 import FakeUserRepository from '../repositories/fakes/FakeUsersRepository'
 import UpdateUserAvatarService from './UpdateUserAvatarService'
 
+let repository: FakeUserRepository
+let storage: FakeStorageProvider
+let service: UpdateUserAvatarService
+
 describe('UpdateUserAvatar', () => {
+  beforeEach(() => {
+    repository = new FakeUserRepository()
+    storage = new FakeStorageProvider()
+    service = new UpdateUserAvatarService(repository, storage)
+  })
   const avatar = 'avatar.jpg'
   const sampleUser = {
     name: 'Mateus',
@@ -12,10 +21,6 @@ describe('UpdateUserAvatar', () => {
   }
 
   it('should be able to update an user avatar', async () => {
-    const repository = new FakeUserRepository()
-    const storage = new FakeStorageProvider()
-    const service = new UpdateUserAvatarService(repository, storage)
-
     const user = await repository.create(sampleUser)
 
     await service.execute({ user_id: user.id, avatarFilename: avatar })
@@ -23,20 +28,13 @@ describe('UpdateUserAvatar', () => {
     expect(user.avatar).toBe(avatar)
   })
 
-  it('should not update avatar of a non-existent user', () => {
-    const repository = new FakeUserRepository()
-    const storage = new FakeStorageProvider()
-    const service = new UpdateUserAvatarService(repository, storage)
-
-    expect(
+  it('should not update avatar of a non-existent user', async () => {
+    await expect(
       service.execute({ user_id: 'invalid', avatarFilename: avatar })
     ).rejects.toBeInstanceOf(AppError)
   })
 
   it('should delete old avatar when sending a new one', async () => {
-    const repository = new FakeUserRepository()
-    const storage = new FakeStorageProvider()
-    const service = new UpdateUserAvatarService(repository, storage)
     const deleteFileSpy = jest.spyOn(storage, 'deleteFile')
 
     const user = await repository.create(sampleUser)
