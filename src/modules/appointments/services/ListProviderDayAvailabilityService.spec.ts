@@ -15,10 +15,12 @@ describe('ListProviderDayAvailability', () => {
     await Promise.all([
       appointmentsRepository.create({
         provider_id: 'user',
+        user_id: 'otheruser',
         date: new Date(2020, 11, 10, 11, 0, 0)
       }),
       appointmentsRepository.create({
         provider_id: 'user',
+        user_id: 'otheruser',
         date: new Date(2020, 11, 10, 15, 0, 0)
       })
     ])

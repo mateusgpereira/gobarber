@@ -15,50 +15,62 @@ describe('ListProviderMonthAvailability', () => {
     await Promise.all([
       appointmentRepository.create({
         provider_id: 'user',
+        user_id: 'otheruser',
         date: new Date(2020, 11, 20, 8, 0, 0)
       }),
       appointmentRepository.create({
         provider_id: 'user',
+        user_id: 'otheruser',
         date: new Date(2020, 11, 20, 9, 0, 0)
       }),
       appointmentRepository.create({
         provider_id: 'user',
+        user_id: 'otheruser',
         date: new Date(2020, 11, 20, 10, 0, 0)
       }),
       appointmentRepository.create({
         provider_id: 'user',
+        user_id: 'otheruser',
         date: new Date(2020, 11, 20, 11, 0, 0)
       }),
       appointmentRepository.create({
         provider_id: 'user',
+        user_id: 'otheruser',
         date: new Date(2020, 11, 20, 12, 0, 0)
       }),
       appointmentRepository.create({
         provider_id: 'user',
+        user_id: 'otheruser',
         date: new Date(2020, 11, 20, 13, 0, 0)
       }),
       appointmentRepository.create({
         provider_id: 'user',
+        user_id: 'otheruser',
         date: new Date(2020, 11, 20, 14, 0, 0)
       }),
       appointmentRepository.create({
         provider_id: 'user',
+        user_id: 'otheruser',
         date: new Date(2020, 11, 20, 15, 0, 0)
       }),
       appointmentRepository.create({
         provider_id: 'user',
+        user_id: 'otheruser',
         date: new Date(2020, 11, 20, 16, 0, 0)
       }),
       appointmentRepository.create({
         provider_id: 'user',
+        user_id: 'otheruser',
         date: new Date(2020, 11, 20, 17, 0, 0)
       }),
       appointmentRepository.create({
         provider_id: 'user',
+        user_id: 'otheruser',
         date: new Date(2020, 11, 21, 10, 0, 0)
       }),
       appointmentRepository.create({
         provider_id: 'user',
+        user_id: 'otheruser',
         date: new Date(2020, 11, 18, 11, 0, 0)
       })
     ])
