@@ -41,6 +41,10 @@ class CreateAppointmentService {
       throw new AppError('You can only create appointments between 8am and 5pm')
     }
 
+    if (user_id === provider_id) {
+      throw new AppError("You can't create an appointment with yourself")
+    }
+
     const appointment = await this.repository.create({
       provider_id,
       user_id,

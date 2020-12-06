@@ -13,7 +13,7 @@ type Response = Array<{
   available: boolean
 }>
 
-injectable()
+@injectable()
 class ListProviderMonthAvailabilityService {
   constructor(
     @inject('AppointmentsRepository')
