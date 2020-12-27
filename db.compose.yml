@@ -10,3 +10,10 @@ services:
       POSTGRES_PASSWORD: docker
     ports:
       - 5432:5432
+
+  mongodb:
+    container_name: gostack_mongo
+    image: mongo:4.4.2-bionic
+    restart: always
+    ports:
+      - 27017:27017
