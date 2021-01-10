@@ -4,6 +4,7 @@ import 'express-async-errors'
 import cors from 'cors'
 import { tmpFolder } from '@config/upload'
 import AppError from '@shared/errors/AppError'
+import { errors } from 'celebrate'
 import routes from './routes'
 
 import '@shared/infra/typeorm'
@@ -17,6 +18,8 @@ app.use(express.json())
 app.use(routes)
 
 app.use('/files', express.static(tmpFolder))
+
+app.use(errors())
 
 app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
   if (err instanceof AppError) {
