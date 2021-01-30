@@ -25,7 +25,6 @@ class ListProviderAppointmentsService {
     month,
     day
   }: RequestData): Promise<Appointment[]> {
-    await this.cacheProvider.recover('hello')
     const appointments = await this.appointmentsRepository.findAllInDayFromProvider(
       {
         provider_id,
@@ -34,8 +33,6 @@ class ListProviderAppointmentsService {
         day
       }
     )
-
-    // this.cacheProvider.save('hello', 'world')
 
     return appointments
   }
