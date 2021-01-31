@@ -6,6 +6,7 @@ import cors from 'cors'
 import { tmpFolder } from '@config/upload'
 import AppError from '@shared/errors/AppError'
 import { errors } from 'celebrate'
+import rateLimiter from './middlewares/rateLimiter'
 import routes from './routes'
 
 import '@shared/infra/typeorm'
@@ -15,7 +16,7 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
-
+app.use(rateLimiter)
 app.use(routes)
 
 app.use('/files', express.static(tmpFolder))

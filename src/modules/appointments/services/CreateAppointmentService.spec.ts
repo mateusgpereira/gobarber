@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 import AppError from '@shared/errors/AppError'
 import FakeNotificationsRepository from '@modules/notifications/repositories/fakes/FakeNotificationsRepository'
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider'
 import CreateAppointmentService from './CreateAppointmentService'
 import FakeAppointmentsRepository from '../repositories/fakes/FakeAppointmentsRepository'
 
@@ -9,13 +10,15 @@ let fakeNotificaitonRepository: FakeNotificationsRepository
 let service: CreateAppointmentService
 
 describe('CreateAppointment', () => {
+  const fakeCacheProvider = new FakeCacheProvider()
   beforeEach(() => {
     fakeRepository = new FakeAppointmentsRepository()
     fakeNotificaitonRepository = new FakeNotificationsRepository()
 
     service = new CreateAppointmentService(
       fakeRepository,
-      fakeNotificaitonRepository
+      fakeNotificaitonRepository,
+      fakeCacheProvider
     )
   })
 

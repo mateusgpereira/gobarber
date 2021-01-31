@@ -40,8 +40,6 @@ class AuthenticateUserService {
       throw new AppError('Incorrect Email or Password', 401)
     }
 
-    delete user.password
-
     const { secret, expiresIn } = authConfig.jwt
     const token = sign({}, secret, { subject: user.id, expiresIn })
 

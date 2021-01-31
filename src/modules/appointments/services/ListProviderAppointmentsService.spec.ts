@@ -1,4 +1,5 @@
 import 'reflect-metadata'
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider'
 import ListProviderAppointmentsService from './ListProviderAppointmentsService'
 import FakeAppointmentsRepository from '../repositories/fakes/FakeAppointmentsRepository'
 
@@ -6,9 +7,10 @@ let service: ListProviderAppointmentsService
 let repository: FakeAppointmentsRepository
 
 describe('ListProviderAppointments', () => {
+  const fakeCacheProvider = new FakeCacheProvider()
   beforeEach(() => {
     repository = new FakeAppointmentsRepository()
-    service = new ListProviderAppointmentsService(repository)
+    service = new ListProviderAppointmentsService(repository, fakeCacheProvider)
   })
 
   it('should be able to list the appointments for a provider in a given day', async () => {

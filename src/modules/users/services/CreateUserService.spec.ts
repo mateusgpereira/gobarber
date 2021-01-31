@@ -1,14 +1,20 @@
 import AppError from '@shared/errors/AppError'
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider'
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository'
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider'
 import CreateUserService from './CreateUserService'
 
 describe('CreateUserService', () => {
   const hashProvider = new FakeHashProvider()
+  const fakeCacheProvider = new FakeCacheProvider()
 
   it('should be create a new user', async () => {
     const repository = new FakeUsersRepository()
-    const service = new CreateUserService(repository, hashProvider)
+    const service = new CreateUserService(
+      repository,
+      hashProvider,
+      fakeCacheProvider
+    )
 
     const user = await service.execute({
       name: 'mateus',
@@ -22,7 +28,11 @@ describe('CreateUserService', () => {
 
   it('should not be able to create two users with same email', async () => {
     const repository = new FakeUsersRepository()
-    const service = new CreateUserService(repository, hashProvider)
+    const service = new CreateUserService(
+      repository,
+      hashProvider,
+      fakeCacheProvider
+    )
 
     await service.execute({
       name: 'mateus',
