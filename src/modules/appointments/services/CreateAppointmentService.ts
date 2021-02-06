@@ -35,8 +35,9 @@ class CreateAppointmentService {
       throw new AppError("You can't create an appointment in a past date")
     }
 
-    const findAppoointmentSameDate = await this.repository.findByDate(
-      appointmentDate
+    const findAppoointmentSameDate = await this.repository.findByDateAndProvider(
+      appointmentDate,
+      provider_id
     )
 
     if (findAppoointmentSameDate) {
